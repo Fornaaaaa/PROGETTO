@@ -31,13 +31,14 @@ table{
     margin-left: auto;
     margin-top: 79px;
 }
-td:hover{
-    background-color: orange;
-}
 td{
     border: solid rgb(255, 111, 0) 4px;
-    width: 100px;
-    height: 100px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color : rgb(255, 111, 0);
+    text-align: center;
+    height: 50px;
+    width: 200px;
 }
 #newgame{
     padding-top: 75px;
@@ -60,25 +61,7 @@ td{
 #reset:hover{
     background-color: orange
 }
-select{
-    padding: 10px;
-    background-color: rgb(255, 111, 0);
-    font-family: fantasy;
-    font-size: large;
-    color: rgb(3, 3, 56);
-    border-radius: 10px;
-    border : solid orange 3px;
-}
-#elenco_mosse{
-    width: 325px;
-    height: 100px;
-    background-color: rgb(255, 111, 0);
-    border-radius: 20px;
-    border: solid orange 5px;
-    color: rgb(3, 3, 56);
-    font-family: fantasy;
-    font-weight: bold;
-    font-size: larger;
-    text-align: center;
-}
+
+
+
 

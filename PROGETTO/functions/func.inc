@@ -18,18 +18,20 @@
     function setImg($croce, $cerchio){
         for($i=1; $i<=9; $i++){
             if(isset($_POST["invia$i"])){
-                $_SESSION["msg"][$i]=get_msg($_SESSION["contatore"], $_SESSION["msg"][$i], $croce, $cerchio);
+                $_SESSION["msg"][$i]=get_msg($_SESSION["contatore"], $_SESSION["msg"][$i], $croce, $cerchio, $i);
                 $_SESSION["pos"][$i]=get_pos($_SESSION["contatore"], $_SESSION["msg"][$i], $_SESSION["pos"][$i], $croce, $cerchio);
                 $_SESSION["contatore"]++;
                 $_SESSION["inizio"][$i]="";
             }
         }
     }
-    function get_msg($contatore, $msg, $croce, $cerchio){
+    function get_msg($contatore, $msg, $croce, $cerchio, $i){
         if ($contatore%2==0){
             $msg="<img src='images/croce.png' id='i'>";
+            $_SESSION["mosse"][]="x$i";
         }else{
             $msg="<img src='images/cerchio.png' id='i'>";
+            $_SESSION["mosse"][]="o$i";
         }
         return $msg;
     }
@@ -75,6 +77,31 @@
             $_SESSION["msg"][$i]="";
             $_SESSION["pos"][$i]=0;
             $_SESSION["inizio"][$i]="<input type='submit' name='invia$i' value='' class='submit' onClick='Music();'>";
+            unset($_SESSION["mosse"]);
+        }
+    }
+    function checkImg(){ 
+        for($j=0; $j<9; $j++){
+            for($h=0; $h<=9; $h++){
+                if(!isset($_SESSION["salvamosse"][$h])){
+                    $_SESSION["salvamosse"][$h]="";
+                }
+            }
+            for($i=1; $i<=9; $i++){
+                if(strpos($_SESSION["salvamosse"][$j], "$i")==1){
+                    if($_SESSION["salvamosse"][$j]=="x$i"){
+                        $_SESSION["stampamosse"][$i]="<img src='images/croce.png' id='i'>";
+                    }
+                    if($_SESSION["salvamosse"][$j]=="o$i"){
+                        $_SESSION["stampamosse"][$i]="<img src='images/cerchio.png' id='i'>";
+                    }
+                }
+            } 
+        }
+        for($i=1; $i<=9; $i++){
+            if(!isset($_SESSION["stampamosse"][$i])){
+                $_SESSION["stampamosse"][$i]="";
+            }
         }
     }
 ?>

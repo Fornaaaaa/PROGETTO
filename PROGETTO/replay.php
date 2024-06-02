@@ -1,91 +1,62 @@
 <?php
-    //COLLEGAMENTO DATABASE
+    include("functions/func.inc");
+    $_SESSION["id"]=$_GET["partita"];
+    $id=$_SESSION["id"];
     $servername="localhost";
     $username="root";
     $password="admin";
     $dbname="tris";
-    //CREO CONNESSIONE
-    
     $conn=new mysqli($servername, $username, $password, $dbname);
-
-
-
-
-
-
-
-    $sql1 = "SELECT vincitore FROM partite WHERE id=1";
-    $result1 = $conn->query($sql1);
-    $row1= $result1->fetch_assoc();
-    $r1=$row1["vincitore"];
-
-    $sql2 = "SELECT vincitore FROM partite WHERE id=2";
-    $result2 = $conn->query($sql2);
-    $row2= $result2->fetch_assoc();
-    $r2=$row2["vincitore"];
-
-    $sql3 = "SELECT vincitore FROM partite WHERE id=3";
-    $result3 = $conn->query($sql3);
-    $row3= $result3->fetch_assoc();
-    $r3=$row3["vincitore"];
-
-    $sql4 = "SELECT vincitore FROM partite WHERE id=4";
-    $result4 = $conn->query($sql4);
-    $row4= $result4->fetch_assoc();
-    $r4=$row4["vincitore"];
-
-    $sql5 = "SELECT vincitore FROM partite WHERE id=5";
-    $result5 = $conn->query($sql5);
-    $row5= $result5->fetch_assoc();
-    $r5=$row5["vincitore"];
+    $query="SELECT mosse FROM partite WHERE id=$id";
+    $risultato=$conn->query($query);
+    $r= $risultato->fetch_assoc();
+    $m=$r["mosse"];
+    for($i=0; $i<=9; $i++){
+        $stampamosse[$i]="";
+        $_SESSION["salvamosse"][$i]="";
+    }
+    $_SESSION["salvamosse"]=explode(", ", $m);
+    
+    checkImg();
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="it">
     <head>
         <meta charset="UTF-8">
-        <title>..::CRONOLOGIA PARTITE::..</title>
+        <title>..::REPLAY::..</title>
         <link rel="stylesheet" href="css/replay_css.css">
     </head>
     <body>
         <div>
-            <h1>CRONOLOGIA PARTITE</h1>
+            <h1>REPLAY</h1> 
         </div>
         <div>
-            <table>
+            <table border=1 frame="void">
                 <tr>
-                    <td><h1>NUMERO PARTITA</h1></td>
-                    <td><h1>VINCITORE</h1></td>
+                    <td><?php echo $_SESSION["stampamosse"][1]?></td>
+                    <td><?php echo $_SESSION["stampamosse"][2]?></td>
+                    <td><?php echo $_SESSION["stampamosse"][3]?></td>
                 </tr>
                 <tr>
-                    <td><h1>1</h1> <p>partita più recente</p></td>
-                    <td><?php echo  "<h1>".$r5."</h1>"?></td>
+                    <td><?php echo $_SESSION["stampamosse"][4]?></td>
+                    <td><?php echo $_SESSION["stampamosse"][5]?></td>
+                    <td><?php echo $_SESSION["stampamosse"][6]?></td>
                 </tr>
                 <tr>
-                    <td><h1>2</h1></td>
-                    <td><?php echo  "<h1>".$r4."</h1>"?></td>
+                    <td><?php echo $_SESSION["stampamosse"][7]?></td>
+                    <td><?php echo $_SESSION["stampamosse"][8]?></td>
+                    <td><?php echo $_SESSION["stampamosse"][9]?></td>
                 </tr>
-                <tr>
-                    <td><h1>3</h1></td>
-                    <td><?php echo  "<h1>".$r3."</h1>"?></td>
-                </tr>
-                <tr>
-                    <td><h1>4</h1></td>
-                    <td><?php echo  "<h1>".$r2."</h1>"?></td>
-                </tr>
-                <tr>
-                    <td><h1>5</h1> <p>partita meno recente</p></td>
-                    <td><?php echo  "<h1>".$r1."</h1>"?></td>
-                </tr>
-            </table>  
+            </table> 
+                <div id="newgame">
+                    <input type="text" name="elenco_mosse" value="<?php echo $m ?>" id="elenco_mosse" readonly>
+                </div> 
         </div>
         
         <div id="newgame">
             <input type="button" name="rep" value="TORNA AL GIUOCO" id="reset" onclick=" window.location.href='tris.php'">
+            <input type="button" name="cro" value="TORNA ALLA CRONOLOGIA" id="reset" onclick=" window.location.href='cronologia.php'">
         </div>
         
     </body>

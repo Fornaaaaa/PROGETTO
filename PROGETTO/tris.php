@@ -40,10 +40,11 @@
                 $sql3="UPDATE partite SET id=2 WHERE id=3";
                 $sql4="UPDATE partite SET id=3 WHERE id=4";
                 $sql5="UPDATE partite SET id=4 WHERE id=5";
+                $str=implode(", ", $_SESSION["mosse"]);
                 if (strpos($win, "PAREGGIO")!=0){
-                    $sql6="INSERT INTO partite VALUES (5, 'pareggio')";
+                    $sql6="INSERT INTO partite VALUES (5, 'pareggio', '$str')";
                 }else{
-                    $sql6="INSERT INTO partite VALUES (5, '$croce')";
+                    $sql6="INSERT INTO partite VALUES (5, '$croce', '$str')";
                 }
                 $conn->query($sql1);
                 $conn->query($sql2);
@@ -61,10 +62,11 @@
                 $sql3="UPDATE partite SET id=2 WHERE id=3";
                 $sql4="UPDATE partite SET id=3 WHERE id=4";
                 $sql5="UPDATE partite SET id=4 WHERE id=5";
+                $str=implode(", ", $_SESSION["mosse"]);
                 if (strpos($win, "PAREGGIO")!=0){
-                    $sql6="INSERT INTO partite VALUES (5, 'pareggio')";
+                    $sql6="INSERT INTO partite VALUES (5, 'pareggio', '$str')";
                 }else{
-                    $sql6="INSERT INTO partite VALUES (5, '$cerchio')";
+                    $sql6="INSERT INTO partite VALUES (5, '$cerchio', '$str')";
                 }
                 $conn->query($sql1);
                 $conn->query($sql2);
@@ -130,11 +132,9 @@
             <img src="images/cerchio.png" name="cerchio" id="cerchio">
             <div id="newgame">
                 <input type="submit" name="reset" value="NUOVA PARTITA" id="reset">
-                <input type="button" name="rep" value="CRONOLOGIA PARTITE" id="reset" onclick=" window.location.href='replay.php'">
+                <input type="button" name="rep" value="CRONOLOGIA PARTITE" id="reset" 
+                onclick=" window.location.href='cronologia.php'">
             </div>
         </form>
-        <?php
-            echo $_SESSION["contatore"];
-        ?>
     </body>
 </html>
